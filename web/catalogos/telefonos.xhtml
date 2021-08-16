@@ -79,7 +79,7 @@
                         <p:outputLabel value=" Telefonía  " /><!-- comment -->
                         <p:inputText id="impt3" type="text" required="true" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{telefono.idTelefonia}" ></p:inputText><!-- comment -->
 
-                        <p:commandButton  update=":form:message,impt1,impt2,impt3,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefono.insertarTelefono()}" onclick="PF('dlg1').hide();" ></p:commandButton>
+                        <p:commandButton  update=":form:message,impt1,impt2,impt3,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefono.insertarTelefono()}" onclick="PF('dlg1').hide();" oncomplete="PF('dlg1').hide();" ></p:commandButton>
                          
                      </p:dialog>
                     

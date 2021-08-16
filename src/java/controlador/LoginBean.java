@@ -45,6 +45,7 @@ public class LoginBean {
               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Nombre", respuesta.getLogin().getNombreUsuario());
             //context.getExternalContext().redirect("/faces/index.xhtml");
             FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+ "/faces/catalogos/index.xhtml");
+            addMessage(FacesMessage.SEVERITY_INFO, "BIENVENIDO", "");
            }else if(respuesta.getRespuesta().getId() > 0){
                System.out.println("Advertencia");
                addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Usuario y/o contraseña incorrectos");
