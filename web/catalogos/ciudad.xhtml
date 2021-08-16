@@ -57,14 +57,14 @@
 
 
 
-                        <p:column style="width:6rem" headerText="Editar">
+                        <p:column style="width:6rem" headerText="EDITAR">
                             <p:rowEditor/>
                         </p:column>
 
 
                         <!-- ELIMINAR -->
                         <p:column style="width:6rem" >                               
-                            <p:commandButton  action = "#{ciudad.eliminarCiudad(p.id)}" value="Borrar" icon="fa fa-fw fa-new"   class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                            <p:commandButton  action = "#{ciudad.eliminarCiudad(p.id)}" value="Borrar" icon="fa fa-fw fa-trash"   class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
                             </p:commandButton>                          
                         </p:column>                       
 
@@ -73,7 +73,7 @@
                     
                     
                    <!-- AGREGAR -->
-                     <p:commandButton value="Agregar Ciudad" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+                     <p:commandButton value="Agregar Ciudad" icon="fa fa-fw fa-plus" type="button" onclick="PF('dlg1').show();" />
 
                      <p:dialog id="modal" header="Agregar Ciudad" widgetVar="dlg1" minHeight="40">
                          
@@ -86,7 +86,7 @@
                         <p:outputLabel value="  Lada  " /><!-- comment -->
                         <p:inputText id="impt3"  type="text"  required="true" requiredMessage="La lada no puede estar vacia" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{ciudad.lada}" ></p:inputText><!-- comment -->
 
-                        <p:commandButton  update=":form:message,impt,impt2,impt3,tabla" value="añadir" icon="fa fa-fw fa-new"  actionListener="#{ciudad.insertarCiudad()}" onclick="PF('dlg1').show();"  ></p:commandButton>
+                        <p:commandButton  update=":form:message,impt,impt2,impt3,tabla" value="añadir" icon="fa fa-fw fa-plus"  actionListener="#{ciudad.insertarCiudad()}" onclick="PF('dlg1').show();"  ></p:commandButton>
                          
                      </p:dialog>
                     

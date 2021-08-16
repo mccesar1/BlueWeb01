@@ -23,7 +23,7 @@ public class CiudadModelo {
     }
     
   
-       public Ciudad listarCiudad(Ciudad ciudad) {  //este es el metodo listar ciudad que va mandar llamar el controlador, 
+       public Ciudad listarCiudad(Ciudad ciudad) {  //este es el metodo listar ciudad sin respuesta, no se usa por el momento 
            
              String query;//declaramos el query
 
@@ -112,6 +112,7 @@ public class CiudadModelo {
             System.out.println(e);
              claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
             claseRespuesta.setMensaje("Error");
+             Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, e);
             
         }  
                return respuestaCiudad;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
@@ -242,9 +243,7 @@ public class CiudadModelo {
             }
             
             
-        } catch (SQLException ex) {
-            Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NamingException ex) {
+        } catch (SQLException | NamingException ex) {
             Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
         }
             

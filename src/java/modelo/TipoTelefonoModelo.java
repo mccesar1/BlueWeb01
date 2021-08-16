@@ -6,8 +6,7 @@
 package modelo;
 
 
-import clases.Ciudad;
-import clases.Clientes;
+
 import clases.Respuesta;
 import clases.TipoTelefono;
 import data.PoolDB;
@@ -22,10 +21,7 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 import respuestas.RespuestaTipoTelefono;
 
-/**
- *
- * @author Erick Chavarria
- */
+
 public class TipoTelefonoModelo {
     
     public RespuestaTipoTelefono MostrarTelefonos(){
@@ -68,7 +64,8 @@ public class TipoTelefonoModelo {
             respuestaTelefono.setRespuesta(claseRespuesta);
             
        } catch (SQLException | NamingException e) {
-            System.out.println(e);              
+            System.out.println(e);   
+            Logger.getLogger(TipoTelefonoModelo.class.getName()).log(Level.SEVERE, null, e);
         }  
                return respuestaTelefono;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
        }
@@ -107,7 +104,7 @@ public class TipoTelefonoModelo {
             
            
         } catch (NamingException ex) {
-            Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTelefonoModelo.class.getName()).log(Level.SEVERE, null, ex);
              claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
                  claseRespuesta.setMensaje("Error");
         }
@@ -154,7 +151,7 @@ public class TipoTelefonoModelo {
              claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
                  claseRespuesta.setMensaje("ERROR");
         } catch (NamingException ex) {
-            Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TipoTelefonoModelo.class.getName()).log(Level.SEVERE, null, ex);
         }
  
         return claseRespuesta;

@@ -55,7 +55,7 @@ public class LoginBean {
           
           
 }
-      
+      //metodo para logOut
        public void logOut() throws IOException {
     
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();
@@ -66,6 +66,7 @@ public class LoginBean {
             
     
     }
+       //metodo para los mensajes
         public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));

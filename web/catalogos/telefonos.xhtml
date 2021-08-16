@@ -6,7 +6,7 @@
                 xmlns:p="http://primefaces.org/ui">
     
     <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
-<ui:define name="titulo">Telefonos</ui:define>
+<ui:define name="titulo">Teléfonos</ui:define>
     <ui:define name="content">
 
         
@@ -25,31 +25,31 @@
                     <p:ajax event="rowEditCancel"  update=":form:message"/>
                                    
                 
-                <p:column headerText="Clave" filterBy="#{p.clave}" filterMatchMode="contains">
+                <p:column headerText="CLAVE" filterBy="#{p.clave}" filterMatchMode="contains">
                     <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{p.clave}"/></f:facet>
-                    <f:facet name="input"><p:inputText placeholder="#{p.clave}" id="modelInput3" value="#{telefono.clave}" style="width:100%"/></f:facet>
+                    <f:facet name="input"><p:inputText placeholder="#{p.clave}" maxlength="30" required="true" requiredMessage="La clave no puede estar vacia" id="modelInput3" value="#{telefono.clave}" style="width:100%"/></f:facet>
                 </p:cellEditor>            
                 </p:column>
                 
-                    <p:column headerText="Descripción" filterBy="#{p.descripcion}" filterMatchMode="contains">
+                    <p:column headerText="DESCRIPCIÓN" filterBy="#{p.descripcion}" filterMatchMode="contains">
                         
                          <p:cellEditor>
                              <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
-                             <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" id="modelInput" value="#{telefono.descripcion}" style="width:100%"/></f:facet>
+                             <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" required="true" requiredMessage="La descripción no puede estar vacia" maxlength="50" id="modelInput" value="#{telefono.descripcion}" style="width:100%"/></f:facet>
                 </p:cellEditor>
                 </p:column><!-- comment -->
 
                 
-                <p:column headerText="Telefonía" filterBy="#{p.id_telefonia}" filterMatchMode="contains">
+                <p:column headerText="TELEFONÍA" filterBy="#{p.id_telefonia}" filterMatchMode="contains">
                      <p:cellEditor>
                          <f:facet name="output"><h:outputText value="#{p.id_telefonia}"/></f:facet>
-                         <f:facet name="input"><p:inputText placeholder="#{p.id_telefonia}" id="modelInput4" value="#{telefono.idTelefonia}" style="width:100%"/></f:facet>
+                         <f:facet name="input"><p:inputText placeholder="#{p.id_telefonia}" required="true" requiredMessage="Telefonía no puede estar vacio" id="modelInput4" maxlength="18" value="#{telefono.idTelefonia}" style="width:100%"/></f:facet>
                 </p:cellEditor>            
                 </p:column>
 
                 
-                 <p:column  headerText="Editar" style="width:6rem">
+                 <p:column  headerText="EDITAR" style="width:6rem">
                 <p:rowEditor/>
             </p:column>
                 
@@ -64,7 +64,7 @@
             
               
              <!-- AGREGAR -->
-              <p:commandButton value="Agregar Telefono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+              <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
 
                      <p:dialog id="modal" header="Agregar Telefono" widgetVar="dlg1" minHeight="40">
                          

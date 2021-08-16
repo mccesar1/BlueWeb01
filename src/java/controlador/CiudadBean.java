@@ -91,8 +91,7 @@ public class CiudadBean implements Serializable{
          
      
      }
-    //
-     //
+   
      //-----------------------funcion para editar------------------------------------
         public void editarCiudad(int id) throws IOException{
             Ciudad ciudad= new Ciudad();

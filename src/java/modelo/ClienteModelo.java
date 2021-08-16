@@ -99,7 +99,8 @@ public class ClienteModelo {
             respuestaCliente.setRespuesta(claseRespuesta);
             
        } catch (SQLException | NamingException e) {
-            System.out.println(e);              
+            System.out.println(e);  
+            Logger.getLogger(ClienteModelo.class.getName()).log(Level.SEVERE, null, e);            
         }  
                return respuestaCliente;//en caso de no poder retornar la lista, debe retornar algo, por eso el return null
        }

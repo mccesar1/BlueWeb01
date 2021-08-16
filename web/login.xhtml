@@ -49,13 +49,13 @@
                         <p:growl id="message" showDetail="true" />
                         <div class="login-input-wrapper">
                             <p:outputLabel for="username" value="Usuario" />
-                            <p:inputText id="username" placeholder="Escribe tu usuario..." value="#{login.user}" />
+                            <p:inputText id="username" placeholder="Escribe tu usuario..." maxlength="150" required="true" requiredMessage="Introduce un nombre de usuario" value="#{login.user}" />
                             <i class="fa fa-user" />
                         </div>
 
                         <div class="login-input-wrapper">
                             <p:outputLabel for="password" value="Contraseña" />
-                            <p:password id="password" placeholder="Escribe tu contraseña" value="#{login.pass}" feedback="false"  />
+                            <p:password id="password" placeholder="Escribe tu contraseña" value="#{login.pass}" feedback="false" required="true" requiredMessage="Introduce tu contraseña"  />
                             <i class="fa fa-lock" />
                         </div>
                               <p:commandButton icon="ui-icon-key" value="Iniciar Sesión" action="#{login.login()}" update="message" />
