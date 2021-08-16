@@ -1,0 +1,10 @@
+
+<Context path="/Aplicacion1">
+<Resource type="javax.enterprise.inject.spi.BeanManager" name="BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" auth="Container"/>
+
+<Resource type="javax.sql.DataSource" name="jdbc/Poolactiva" auth="Container" validationQuery="select getdate()"
+          username="activa" url="jdbc:sqlserver://192.168.98.224;databaseName=ACTIVACION;ProgramName=Aplicacion1;characterEncoding=iso-8859-1" 
+          removeAbandonedTimeout="54000" removeAbandonedOnBorrow="true" password="activa" maxWaitMillis="90000" maxIdle="70" maxTotal="2000" 
+          logAbandoned="true" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+
+</Context>

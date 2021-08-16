@@ -1,0 +1,48 @@
+<ui:composition template="template/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+
+        
+        <h:outputStylesheet library="css" name="styles.css"/>
+            <h:form id="form">
+
+            <p:dataTable value="#{cliente.listaClientes}"  var="p" paginator="true"  rows="10"  
+                         emptyMessage="no se encontraron resultados"   widgetVar="filtroCiudad" 
+                         filteredValue="#{cliente.filtroClientes}"
+                            >
+                
+                <p:column headerText="ID" filterBy="#{p.id}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.id}" />               
+                </p:column>
+                
+                <p:column headerText="NOMBRE" filterBy="#{p.nombre}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.nombre}"/>               
+                </p:column><!-- comment -->
+
+                <p:column headerText="NUMERO" filterBy="#{p.numero}" filterMatchMode="contains">
+                    <p:outputLabel value="#{p.numero}"/>               
+                </p:column>
+
+                <p:column style="width:6rem">
+                    <p:linkButton type="button" value="Editar" styleClass=" ui-button-info" >
+                        <f:param name="CiudadId" value="#{p.id}" />
+                    </p:linkButton>
+                </p:column>
+
+                <p:column style="width:6rem">
+                    <p:linkButton type="button" value="Borrar" styleClass=" ui-button-danger" >
+                        <f:param name="id" value="#{p.id}" />
+                    </p:linkButton>
+                </p:column>
+                
+            </p:dataTable >
+        </h:form>
+
+        
+    </ui:define>
+</ui:composition>

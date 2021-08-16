@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="titulo" /></title>
+        <ui:insert name="icono"/>
+         <h:outputStylesheet library="css" name="default.css"/>
+         
+    </h:head>
+    <h:body>
+        
+        
+      
+     <p:ajaxStatus onstart="PF('status').show()" onsuccess="PF('status').hide()"/>
+            <p:dialog widgetVar="status" modal="true" draggable="false" closable="false" resizable="false" >
+                <div class="p-text-center">
+                    <p:graphicImage value="#{resource['img/ajax-loader.gif']}"/>
+                </div>
+            </p:dialog>
+     
+     
+   
+
+     
+        <p:layout fullPage="true">
+            <p:layoutUnit position="north" >
+                <ui:include src="header.xhtml" />
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="west">
+                <ui:include src="left.xhtml" />
+            </p:layoutUnit>
+
+
+            <p:layoutUnit position="center">
+                    <ui:insert name="content"></ui:insert>
+            </p:layoutUnit>
+        </p:layout>
+     
+     
+     <p:idleMonitor timeout="60000">
+            <p:ajax event="active" onstart="PF('inactivo').show()"/>
+        </p:idleMonitor>
+
+        <p:dialog widgetVar="inactivo" draggable="false" closable="false" resizable="false" header="Tu sesión a terminado" modal="true">
+            <p:panel>
+                <h:form>
+                    <p:outputLabel value="Tú sesión se ha cerrado"/>
+                    <p:commandButton value="Salir" actionListener="#{login.logOut()}" style="margin: 0.7rem;" oncomplete="PF('inactivo').hide()"/>
+                </h:form>
+            </p:panel>
+        </p:dialog> 
+     
+    </h:body>
+</html>

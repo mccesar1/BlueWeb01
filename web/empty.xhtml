@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Inicio</ui:define>
+    <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
+    <ui:define name="viewname">
+        <li>Pages</li> 
+        <li><i class="fa fa-angle-right"></i></li>
+        
+    </ui:define>
+
+    <ui:define name="content">
+        <div class="ui-g">
+             <h:form>
+             
+             
+             <p:galleria  value="#{indexBean.images}" var="image" panelWidth="1200" panelHeight="613" showCaption="false" styleClass="galeria" >
+            <p:graphicImage name="img/#{image}" 
+                        title="#{image}" />
+            
+         </p:galleria>
+           
+         </h:form>
+        </div>
+        
+    </ui:define>
+
+</ui:composition>

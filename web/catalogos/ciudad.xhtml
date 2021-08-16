@@ -1,0 +1,99 @@
+<ui:composition template="../WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mirage">
+    
+
+    <ui:define name="titulo">Ciudad</ui:define>
+    <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
+    <ui:define name="content">
+
+        
+        <h:outputStylesheet library="mirage-layout" name="red-light.css"/>
+        
+     
+           
+
+                <h:form id="form">
+                    <p:growl id="message" showDetail="true"/>
+
+
+                    <p:dataTable id="tabla" value="#{ciudad.listaCiudad}" var="p" paginator="true" rows="10" editable="true" emptyMessage="No se encontraron resultados" widgetVar="filtroCiudad" 
+                                 filteredValue="#{ciudad.filtroCiudad}">
+
+
+                         <!-- EDITAR -->         
+                        <p:ajax event="rowEdit" listener="#{ciudad.editarCiudad(p.id)}" update=":form:message"/>
+                        <p:ajax event="rowEditCancel"  update=":form:message"/>
+
+                   
+                        
+                        <p:column headerText="DESCRIPCIÓN" filterBy="#{p.descripcion}" filterMatchMode="contains"  >
+
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
+                                <f:facet name="input"><p:inputText required="true" requiredMessage="La descripción no puede estar vacia" maxlength="50" id="descripcion" placeholder="#{p.descripcion}" value="#{ciudad.descripcion}" style="width:100%"/></f:facet>
+                            </p:cellEditor>             
+                        </p:column>
+                        <p:column headerText="CÓDIGO" filterBy="#{p.codigo}" filterMatchMode="contains"  >
+
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{p.codigo}"/></f:facet>
+                                <f:facet name="input"><p:inputText required="true" requiredMessage="El código no puede estar vacio" maxlength="20"   id="codigo" placeholder="#{p.codigo}" value="#{ciudad.codigo}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+
+                        <p:column headerText="LADA" filterBy="#{p.lada}" filterMatchMode="contains"  >
+
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{p.lada}"/></f:facet>
+                                <f:facet name="input"><p:inputText maxlength="3" required="true" requiredMessage="La lada no puede estar vacia"  id="lada" placeholder="#{p.lada}" value="#{ciudad.lada}" style="width:100%"/></f:facet>
+                            </p:cellEditor>              
+                        </p:column>
+
+
+
+                        <p:column style="width:6rem" headerText="Editar">
+                            <p:rowEditor/>
+                        </p:column>
+
+
+                        <!-- ELIMINAR -->
+                        <p:column style="width:6rem" >                               
+                            <p:commandButton  action = "#{ciudad.eliminarCiudad(p.id)}" value="Borrar" icon="fa fa-fw fa-new"   class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                            </p:commandButton>                          
+                        </p:column>                       
+
+                        
+                    </p:dataTable>
+                    
+                    
+                   <!-- AGREGAR -->
+                     <p:commandButton value="Agregar Ciudad" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+
+                     <p:dialog id="modal" header="Agregar Ciudad" widgetVar="dlg1" minHeight="40">
+                         
+                         <p:outputLabel value="  Descripción  " /><!-- comment -->
+                        <p:inputText id="impt" type="text" required="true" requiredMessage="la Descripción no puede estar vacia"  maxlength="50" label="Descripción" validatorMessage="maximo 50 digitos" value="#{ciudad.descripcion}" ></p:inputText>
+
+                        <p:outputLabel value="  Código  " /><!-- comment -->
+                        <p:inputText id="impt2" type="text" required="true" requiredMessage="El codigo no puede estar vacio" maxlength="20" label="Código" value="#{ciudad.codigo}" ></p:inputText><!-- comment -->
+
+                        <p:outputLabel value="  Lada  " /><!-- comment -->
+                        <p:inputText id="impt3"  type="text"  required="true" requiredMessage="La lada no puede estar vacia" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{ciudad.lada}" ></p:inputText><!-- comment -->
+
+                        <p:commandButton  update=":form:message,impt,impt2,impt3,tabla" value="añadir" icon="fa fa-fw fa-new"  actionListener="#{ciudad.insertarCiudad()}" onclick="PF('dlg1').show();"  ></p:commandButton>
+                         
+                     </p:dialog>
+                    
+                  
+                    </h:form>
+                    
+        
+           
+    </ui:define>
+</ui:composition>
