@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import javax.naming.NamingException;
 import respuestas.RespuestaUsuario;
 import utils.HexDigest;
-
+//funcion para hacer login 
 public class LoginModelo {
 
     public static RespuestaUsuario login(Usuario usu) {

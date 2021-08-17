@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 public class LoginBean {
     
   private Usuario usuario;
-   private String user, pass;
+   private String user, pass;//variables que se llenan con el html de login 
    
       
 
@@ -27,7 +27,7 @@ public class LoginBean {
           
          
           usuario= new Usuario();
-          usuario.setUsuario(user);
+          usuario.setUsuario(user); //mandamos los datos al objeto usuario
           usuario.setPassword(pass);
           
          // LoginModelo login = new LoginModelo();
