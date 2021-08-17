@@ -38,7 +38,7 @@ public class CiudadBean implements Serializable{
    
     @PostConstruct
     
-    public void listarCiudad() {
+    public void listarCiudad() {//funcion para mostrar la lista 
        
         CiudadModelo ciudadmodelo = new CiudadModelo();//crea ciudadmodelo que se conecta con el metodo que esta en ciudad modelo
         
@@ -57,8 +57,7 @@ public class CiudadBean implements Serializable{
     
     }
     //-------------------------------------para agregar------------------------------------------------------------
-     public void insertarCiudad() throws IOException{
-        // addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "sdasdasd");
+     public void insertarCiudad() throws IOException{     
          
          ciudad= new Ciudad(); //creamos un nuevo objeto ciudad     
          ciudad.setDescripcion(descripcion);//le mandamos al nuevo objeto ciudad los valores que tienen las variables
@@ -108,9 +107,7 @@ public class CiudadBean implements Serializable{
                lada=0;
                 addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Ciudad editada");
              listarCiudad();//para que vuelva a listar despues de agregar la nueva fila
-             //redireccionamos a la lista de ciudad
-              //FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+ "/faces/ciudad.xhtml");
-               // addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Ciudad ditada");
+            
              System.out.println("fila editada");
          }else if (respuesta.getId() < 0){
                 System.out.println("Error");

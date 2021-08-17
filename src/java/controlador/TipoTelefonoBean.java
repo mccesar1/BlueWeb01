@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package controlador;
 
 
@@ -130,9 +126,7 @@ public class TipoTelefonoBean {
                idTelefonia=0;
                 addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Telefono editado");
              listarTelefonos();//para que vuelva a listar despues de agregar la nueva fila
-             //redireccionamos a la lista de ciudad
-              //FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath()+ "/faces/telefonos.xhtml");
-                //addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Telefono editado");
+            
              System.out.println("fila editada");
          }else if (respuesta.getId() < 0){
                 System.out.println("Error");

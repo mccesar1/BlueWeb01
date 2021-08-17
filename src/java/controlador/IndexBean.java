@@ -19,7 +19,7 @@ public class IndexBean {
     
      private List<String> images;    //declaramos las listas
      
-     private int idUsuario;
+     private int idUsuario;//variables para intentar llenarlas con las variables de sesion 
     private String usuario;
      private String nombre;
      
