@@ -198,8 +198,7 @@ public class TipoTelefonoModelo {
         } catch (NamingException ex) {
             Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
+                 
         return claseRespuesta;
            
        }
