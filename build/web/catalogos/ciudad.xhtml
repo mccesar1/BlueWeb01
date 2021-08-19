@@ -26,7 +26,7 @@
 
 
                          <!-- EDITAR -->         
-                        <p:ajax event="rowEdit" listener="#{ciudad.editarCiudad(p.id)}" update=":form:message"/>
+                         <p:ajax event="rowEdit" listener="#{ciudad.editarCiudad}" update=":form:message"/>
                         <p:ajax event="rowEditCancel"  update=":form:message"/>
 
                    
@@ -35,14 +35,14 @@
 
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
-                                <f:facet name="input"><p:inputText required="true" requiredMessage="La descripción no puede estar vacia" maxlength="50" id="descripcion" placeholder="#{p.descripcion}" value="#{ciudad.descripcion}" style="width:100%"/></f:facet>
+                                <f:facet name="input"><p:inputText maxlength="50" id="descripcion" placeholder="#{p.descripcion}" value="#{ciudad.descripcion}" style="width:100%"/></f:facet>
                             </p:cellEditor>             
                         </p:column>
                         <p:column headerText="CÓDIGO" filterBy="#{p.codigo}" filterMatchMode="contains"  >
 
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{p.codigo}"/></f:facet>
-                                <f:facet name="input"><p:inputText required="true" requiredMessage="El código no puede estar vacio" maxlength="20"   id="codigo" placeholder="#{p.codigo}" value="#{ciudad.codigo}" style="width:100%"/></f:facet>
+                                <f:facet name="input"><p:inputText  maxlength="20"   id="codigo" placeholder="#{p.codigo}" value="#{ciudad.codigo}" style="width:100%"/></f:facet>
                             </p:cellEditor>
 
                         </p:column>
@@ -51,7 +51,9 @@
 
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{p.lada}"/></f:facet>
-                                <f:facet name="input"><p:inputText maxlength="3" required="true" requiredMessage="La lada no puede estar vacia"  id="lada" placeholder="#{p.lada}" value="#{ciudad.lada}" style="width:100%"/></f:facet>
+                                <f:facet name="input">
+                                    <p:inputNumber maxlength="3"  id="lada" placeholder="#{p.lada}" value="#{ciudad.lada}" decimalPlaces="0" maxValue="999" />
+                                </f:facet>
                             </p:cellEditor>              
                         </p:column>
 
