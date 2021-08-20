@@ -4,88 +4,88 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    
+
     <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
-<ui:define name="titulo">Teléfonos</ui:define>
+    <ui:define name="titulo">Teléfonos</ui:define>
     <ui:define name="content">
 
-        
-      
-            <h:form id="form">
-                 <p:growl id="message" showDetail="true"/>
-           
 
-                 <p:dataTable id="tabla" value="#{telefono.listaTelefono}" editable="true"  var="p" paginator="true"  rows="10"  
+
+        <h:form id="form">
+            <p:growl id="message" showDetail="true"/>
+
+
+            <p:dataTable id="tabla" value="#{telefonoBean.listaTelefono}" editable="true"  var="p" paginator="true"  rows="10"  
                          emptyMessage="no se encontraron resultados"   widgetVar="filtroCiudad" 
-                         filteredValue="#{telefono.filtroTelefono}"
-                            >
-                    
-                     <!-- EDITAR -->
-                     <p:ajax event="rowEdit" listener="#{telefono.editarTelefono(p.id)}" update=":form:message"/>
-                    <p:ajax event="rowEditCancel"  update=":form:message"/>
-                                   
-                
+                         filteredValue="#{telefonoBean.filtroTelefono}"
+                         >
+
+                <!-- EDITAR -->
+                <p:ajax event="rowEdit" listener="#{telefonoBean.editarTelefono}" update=":form:message"/>
+                <p:ajax event="rowEditCancel"  update=":form:message"/>
+
+
                 <p:column headerText="CLAVE" filterBy="#{p.clave}" filterMatchMode="contains">
                     <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{p.clave}"/></f:facet>
-                    <f:facet name="input"><p:inputText placeholder="#{p.clave}" maxlength="30" required="true" requiredMessage="La clave no puede estar vacia" id="modelInput3" value="#{telefono.clave}" style="width:100%"/></f:facet>
-                </p:cellEditor>            
+                        <f:facet name="output"><h:outputText value="#{p.clave}"/></f:facet>
+                        <f:facet name="input"><p:inputText placeholder="#{p.clave}" maxlength="30"   id="modelInput3" value="#{telefonoBean.clave}" style="width:100%"/></f:facet>
+                    </p:cellEditor>            
                 </p:column>
-                
-                    <p:column headerText="DESCRIPCIÓN" filterBy="#{p.descripcion}" filterMatchMode="contains">
-                        
-                         <p:cellEditor>
-                             <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
-                             <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" required="true" requiredMessage="La descripción no puede estar vacia" maxlength="50" id="modelInput" value="#{telefono.descripcion}" style="width:100%"/></f:facet>
-                </p:cellEditor>
+
+                <p:column headerText="DESCRIPCIÓN" filterBy="#{p.descripcion}" filterMatchMode="contains">
+
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
+                        <f:facet name="input"><p:inputText placeholder="#{p.descripcion}"   maxlength="50" id="modelInput" value="#{telefonoBean.descripcion}" style="width:100%"/></f:facet>
+                    </p:cellEditor>
                 </p:column><!-- comment -->
 
-                
+
                 <p:column headerText="TELEFONÍA" filterBy="#{p.id_telefonia}" filterMatchMode="contains">
-                     <p:cellEditor>
-                         <f:facet name="output"><h:outputText value="#{p.id_telefonia}"/></f:facet>
-                         <f:facet name="input"><p:inputText placeholder="#{p.id_telefonia}" required="true" requiredMessage="Telefonía no puede estar vacio" id="modelInput4" maxlength="18" value="#{telefono.idTelefonia}" style="width:100%"/></f:facet>
-                </p:cellEditor>            
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{p.id_telefonia}"/></f:facet>
+                        <f:facet name="input"><p:inputNumber placeholder="#{p.id_telefonia}"   id="modelInput4" maxlength="18" value="#{telefonoBean.idTelefonia}" decimalPlaces="0" style="width:100%"/></f:facet>
+                    </p:cellEditor>            
                 </p:column>
 
-                
-                 <p:column  headerText="EDITAR" style="width:6rem">
-                <p:rowEditor/>
-            </p:column>
-                
+
+                <p:column  headerText="EDITAR" style="width:6rem">
+                    <p:rowEditor/>
+                </p:column>
+
                 <!-- ELIMINAR -->
-               <p:column style="width:6rem" >                               
-                   <p:commandButton  action = "#{telefono.eliminarTelefono(p.id)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
-                            </p:commandButton>                          
-                        </p:column>    
-                
-                
+                <p:column style="width:6rem" >                               
+                    <p:commandButton  action = "#{telefonoBean.eliminarTelefono(p.id)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                    </p:commandButton>                          
+                </p:column>    
+
+
             </p:dataTable >
-            
-              
-             <!-- AGREGAR -->
-              <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
 
-                     <p:dialog id="modal" header="Agregar Telefono" widgetVar="dlg1" minHeight="40">
-                         
-                         <p:outputLabel value="  Clave  " /><!-- comment -->
-                         <p:inputText id="impt1" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{telefono.clave}" ></p:inputText><!-- comment -->
 
-                         
-                         <p:outputLabel value="  Descripción  " /><!-- comment -->
-                         <p:inputText id="impt2" type="text" required="true" maxlength="50" label="La descripción no puede estar vacia" validatorMessage="maximo 50 digitos" value="#{telefono.descripcion}" ></p:inputText>
+            <!-- AGREGAR -->
+            <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
 
-                        
-                        <p:outputLabel value=" Telefonía  " /><!-- comment -->
-                        <p:inputText id="impt3" type="text" required="true" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{telefono.idTelefonia}" ></p:inputText><!-- comment -->
+            <p:dialog id="modal" header="Agregar Telefono" widgetVar="dlg1" minHeight="40">
 
-                        <p:commandButton  update=":form:message,impt1,impt2,impt3,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefono.insertarTelefono()}" onclick="PF('dlg1').hide();" oncomplete="PF('dlg1').hide();" ></p:commandButton>
-                         
-                     </p:dialog>
-                    
-             </h:form>
-             
-         
-        
+                <p:outputLabel value="  Clave  " /><!-- comment -->
+                <p:inputText id="impt1" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{telefonoBean.clave}" ></p:inputText><!-- comment -->
+
+
+                <p:outputLabel value="  Descripción  " /><!-- comment -->
+                <p:inputText id="impt2" type="text" required="true" maxlength="50" label="La descripción no puede estar vacia" validatorMessage="maximo 50 digitos" value="#{telefonoBean.descripcion}" ></p:inputText>
+
+
+                <p:outputLabel value=" Telefonía  " /><!-- comment -->
+                <p:inputNumber id="impt3" type="text" required="true" maxValue="999" label="El campo de telefonia no puede estar vacio" decimalPlaces="0" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{telefonoBean.idTelefonia}" ></p:inputNumber><!-- comment -->
+
+                <p:commandButton  update=":form:message,impt1,impt2,impt3,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefonoBean.insertarTelefono()}" onclick="PF('dlg1').show();"  ></p:commandButton>
+
+            </p:dialog>
+
+        </h:form>
+
+
+
     </ui:define>
 </ui:composition>

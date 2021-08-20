@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
 import modelo.ClienteModelo;
 
-@ViewScoped
 @ManagedBean(name = "cliente")
 public class ClientesBean {
 

@@ -35,9 +35,11 @@
         <h:outputScript name="js/nanoscroller.js" library="mirage-layout" />
         <h:outputScript name="js/layout.js" library="mirage-layout" />
         <ui:insert name="head"/>
+        <f:event listener="#{sesionBean.logueado()}" type="preRenderView"  />
     </h:head>
 
     <h:body>
+       
         
         <p:ajaxStatus onstart="PF('status').show()" onsuccess="PF('status').hide()"/>
             <p:dialog widgetVar="status" modal="true" draggable="false" closable="false" resizable="false" >
@@ -93,7 +95,7 @@
         </p:dialog> 
         
          
-        
+         
         
    <h:outputStylesheet name="css/nanoscroller.css" library="mirage-layout" />
         <h:outputStylesheet name="css/primeflex.css" library="mirage-layout" />

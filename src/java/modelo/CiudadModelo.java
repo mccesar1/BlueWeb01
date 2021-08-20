@@ -23,16 +23,13 @@ public class CiudadModelo {
 
     public Ciudad listarCiudad(Ciudad ciudad) {  //este es el metodo listar ciudad sin respuesta, no se usa por el momento 
 
-        String query;//declaramos el query
-
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
 
         try {
             con = pool.getConnection("activa");//aqui se conecta 
-
-            query = "SELECT * FROM C_CIUDAD WHERE ID=?";//query para hacer la consulta
-            PreparedStatement ps = con.prepareStatement(query); // hacer la conexion mandando llamar al query de arriba/preparedstatment/llamar procedimientos almacenados  
+      
+            PreparedStatement ps = con.prepareStatement("SELECT * FROM C_CIUDAD WHERE ID=?"); // hacer la conexion mandando llamar al query de arriba/preparedstatment/llamar procedimientos almacenados  
 
             ps.setInt(1, ciudad.getId());
 
@@ -62,7 +59,6 @@ public class CiudadModelo {
     public RespuestaCiudad mostrarListaCiudad() {
         RespuestaCiudad respuestaCiudad = new RespuestaCiudad();
         Respuesta claseRespuesta = new Respuesta();
-        String query = "";//declaramos el query
         List<Ciudad> lista = new ArrayList();//creas la lista
 
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
@@ -71,8 +67,8 @@ public class CiudadModelo {
         try {
             con = pool.getConnection("activa");//aqui se conecta 
 
-            query = "SELECT * FROM C_CIUDAD";//query para hacer la consulta
-            PreparedStatement consulta = con.prepareStatement(query); // hacer la conexion mandando llamar al query de arriba/preparedstatment/llamar procedimientos almacenados  
+           
+            PreparedStatement consulta = con.prepareStatement("SELECT ID_CIUDAD, DESCRIPCION, CODIGO, LADA FROM C_CIUDAD WITH (NOLOCK)"); // hacer la conexion mandando llamar al query de arriba/preparedstatment/llamar procedimientos almacenados  
             ResultSet rs = consulta.executeQuery();//el rs de tipo resulset se va a usar para traer los datos
 
             while (rs.next()) {
@@ -120,13 +116,11 @@ public class CiudadModelo {
 
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
-        String query;//declaramos el query
+        
         try {
 
-            con = pool.getConnection("activa");//aqui se conecta
-            query = "DELETE FROM C_CIUDAD WHERE ID_CIUDAD=?";
-            PreparedStatement ps = con.prepareStatement(query);
-
+            con = pool.getConnection("activa");//aqui se conecta       
+            PreparedStatement ps = con.prepareStatement("DELETE FROM C_CIUDAD WHERE ID_CIUDAD=?");
             ps.setInt(1, ciudad.getId());//le envio al query lo que tiene guardado el objeto ciudad
 
             int result = ps.executeUpdate();
@@ -159,13 +153,11 @@ public class CiudadModelo {
         Respuesta claseRespuesta = new Respuesta();
 
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
-        Connection con = null;//declaras la conexion y la inicias en null 
-        String query;//declaramos el query
+        Connection con = null;//declaras la conexion y la inicias en null
         try {
             con = pool.getConnection("activa");//aqui se conecta
 
-            query = "INSERT INTO C_CIUDAD (DESCRIPCION, CODIGO, LADA, ID_USUARIO) VALUES (?, ?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement("INSERT INTO C_CIUDAD (DESCRIPCION, CODIGO, LADA, ID_USUARIO) VALUES (?, ?, ?, ?)");
 
             ps.setString(1, ciudad.getDescripcion());
             ps.setString(2, ciudad.getCodigo());
@@ -206,11 +198,10 @@ public class CiudadModelo {
 
         PoolDB pool = new PoolDB();//creamos el objeto pooldb para conectarse al pooldb
         Connection con = null;//declaras la conexion y la inicias en null 
-        String query;//declaramos el query
+
         try {
             con = pool.getConnection("activa");//aqui se conecta
-            query = "UPDATE C_CIUDAD SET DESCRIPCION=?, CODIGO=?, LADA=?, ID_USUARIO=? WHERE ID_CIUDAD=?";
-            PreparedStatement ps = con.prepareStatement(query);
+            PreparedStatement ps = con.prepareStatement("UPDATE C_CIUDAD SET DESCRIPCION=?, CODIGO=?, LADA=?, ID_USUARIO=? WHERE ID_CIUDAD=?");
 
             ps.setString(1, ciudad.getDescripcion());//le envio con los getter de mi bjeto cioudad, lo que tiene el objeto que se lleno con los set del bean
             ps.setString(2, ciudad.getCodigo());

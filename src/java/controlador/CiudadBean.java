@@ -1,7 +1,6 @@
 package controlador;
 
 import clases.Ciudad;
-import java.io.Serializable;
 import java.sql.SQLException;
 import respuestas.RespuestaCiudad;
 import java.util.ArrayList;
@@ -11,16 +10,15 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import modelo.CiudadModelo;
 import clases.Respuesta;
 import java.io.IOException;
 import org.primefaces.event.RowEditEvent;
 
-@ManagedBean(name = "ciudad")
-@SessionScoped
-public class CiudadBean implements Serializable {
+@ManagedBean(name = "ciudadBean")
+
+public class CiudadBean  {
 
     private List<Ciudad> listaCiudad = new ArrayList<>();//inicialisa la lista;
     private List<Ciudad> filtroCiudad;
@@ -157,60 +155,62 @@ public class CiudadBean implements Serializable {
     }
 
     //---------------------------------------------------------------------------------
+    //<editor-fold defaultstate="collapsed" desc="Getters y Setters">
     public List<Ciudad> getListaCiudad() {
         return listaCiudad;
     }
-
+    
     public List<Ciudad> getFiltroCiudad() {
         return filtroCiudad;
     }
-
+    
     public void setListaCiudad(List<Ciudad> listaCiudad) {
         this.listaCiudad = listaCiudad;
     }
-
+    
     public void setFiltroCiudad(List<Ciudad> filtroCiudad) {
         this.filtroCiudad = filtroCiudad;
     }
-
+    
     public Ciudad getCiudad() {
         return ciudad;
     }
-
+    
     public void setCiudad(Ciudad ciudad) {
         this.ciudad = ciudad;
     }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
     public String getLada() {
         return lada;
     }
-
+    
     public void setLada(String lada) {
         this.lada = lada;
     }
-
+    
     public String getCodigo() {
         return codigo;
     }
-
+    
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-
+    
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
     }
+//</editor-fold>
 
 }
