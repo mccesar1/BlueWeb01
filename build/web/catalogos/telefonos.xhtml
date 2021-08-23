@@ -44,7 +44,13 @@
                 <p:column headerText="TELEFONÍA" filterBy="#{p.id_telefonia}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{p.id_telefonia}"/></f:facet>
-                        <f:facet name="input"><p:inputNumber placeholder="#{p.id_telefonia}"   id="modelInput4" maxlength="18" value="#{telefonoBean.idTelefonia}" decimalPlaces="0" style="width:100%"/></f:facet>
+                        <f:facet name="input"> <p:selectOneMenu id="option" value="#{telefonoBean.idTelefonia}"  >
+                        <f:selectItems value="#{telefonoBean.listaTelefono}" var="telefono"
+                                       itemLabel="#{telefono.id_telefonia}" itemValue="#{telefono.id_telefonia}"/>
+
+                    
+                </p:selectOneMenu></f:facet>
+                    
                     </p:cellEditor>            
                 </p:column>
 
@@ -76,11 +82,18 @@
                 <p:outputLabel value="  Descripción  " /><!-- comment -->
                 <p:inputText id="impt2" type="text" required="true" maxlength="50" label="La descripción no puede estar vacia" validatorMessage="maximo 50 digitos" value="#{telefonoBean.descripcion}" ></p:inputText>
 
+<!--
+                <p:outputLabel value=" Telefonía  " /> comment 
+                <p:inputNumber id="impt3" type="text"  maxValue="999" label="El campo de telefonia no puede estar vacio" decimalPlaces="0" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{telefonoBean.idTelefonia}" ></p:inputNumber> comment 
+               -->
+                <p:selectOneMenu id="option" value="#{telefonoBean.idTelefonia}"  >
+                        <f:selectItems value="#{telefonoBean.listaTelefono}" var="telefono"
+                                       itemLabel="#{telefono.id_telefonia}" itemValue="#{telefono.id_telefonia}"/>
 
-                <p:outputLabel value=" Telefonía  " /><!-- comment -->
-                <p:inputNumber id="impt3" type="text" required="true" maxValue="999" label="El campo de telefonia no puede estar vacio" decimalPlaces="0" maxlength="3"  validatorMessage="maximo 3 digitos" value="#{telefonoBean.idTelefonia}" ></p:inputNumber><!-- comment -->
-
-                <p:commandButton id="btnAgregar"  update=":form:message,impt1,impt2,impt3,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefonoBean.insertarTelefono()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
+                    
+                </p:selectOneMenu>
+                
+                <p:commandButton id="btnAgregar"  update=":form:message,impt1,impt2,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefonoBean.insertarTelefono()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
 
             </p:dialog>
 
