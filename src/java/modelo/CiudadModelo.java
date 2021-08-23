@@ -138,11 +138,16 @@ public class CiudadModelo {
 
             }
 
-        } catch (NamingException ex) {
+        } catch (NamingException ex ) {
             Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
             claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
             claseRespuesta.setMensaje("Error");
         }
+          catch (SQLException ex) {
+             Logger.getLogger(CiudadModelo.class.getName()).log(Level.SEVERE, null, ex);
+             claseRespuesta.setId(-1);//mandamos los datos al obejto respuesta
+            claseRespuesta.setMensaje("Error");
+            }
         return claseRespuesta;
     }
 //----------------------------funcion para agregar--------------------------------------------------------------

@@ -31,7 +31,8 @@ public class CiudadBean  {
 
     @PostConstruct
 
-    public void listarCiudad() {//funcion para mostrar la lista 
+    //-------------------------funcion para mostrar la lista --------------------------------------------------------------
+    public void listarCiudad() {
 
         CiudadModelo ciudadmodelo = new CiudadModelo();//crea ciudadmodelo que se conecta con el metodo que esta en ciudad modelo
 
@@ -129,11 +130,11 @@ public class CiudadBean  {
         Respuesta respuesta = CiudadModelo.elimnarCiudad(ciudad);
 
         try {
-            if (respuesta.getId() > 0) {
+            if (respuesta.getId() == 1) {
                 System.out.println("error al borrar");
                 addMessage(FacesMessage.SEVERITY_WARN, "Advertencia", "Ciudad no eliminada");
 
-            } else if (respuesta.getId() < 0) {
+            } else if (respuesta.getId() == -1) {
                 System.out.println("Error");
                 addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ciudad no eliminada");
 
