@@ -66,19 +66,27 @@
 
                 <!-- ELIMINAR -->
                 <p:column style="width:6rem" >                               
-                    <p:commandButton  action = "#{ciudadBean.eliminarCiudad(p.id)}" value="Borrar" icon="fa fa-fw fa-trash"   class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                    <p:commandButton action = "#{ciudadBean.eliminarCiudad(p.id)}" value="Borrar" icon="fa fa-fw fa-trash"   class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                       <p:confirm header="Confirmación" message="¿Seguro que desea eliminar?" icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>                          
                 </p:column>                       
 
 
             </p:dataTable>
-
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
 
             <!-- AGREGAR -->
-            <p:commandButton value="Agregar Ciudad" icon="fa fa-fw fa-plus" type="button" onclick="PF('dlg1').show();"   />
+            
+        <p:defaultCommand target="btnAgregar" />
+        
+        <p:commandButton id="boton" widgetVar="boton" value="Agregar Ciudad" icon="fa fa-fw fa-plus" type="button" onclick="PF('dlg1').show();" oncomplete="PF('dlg1').hide();"   />
 
-            <p:dialog id="modal" header="Agregar Ciudad" widgetVar="dlg1" minHeight="40" >
-
+            <p:dialog id="modal" header="Agregar Ciudad" widgetVar="dlg1" minHeight="40" modal="true"  >
+                 
                 <p:outputLabel value="  Descripción  " /><!-- comment -->
                 <p:inputText id="impt" type="text" required="true" requiredMessage="la Descripción no puede estar vacia"  maxlength="50" label="Descripción" validatorMessage="maximo 50 digitos" value="#{ciudadBean.descripcion}" ></p:inputText>
 
@@ -88,11 +96,13 @@
                 <p:outputLabel value="  Lada  " /><!-- comment -->
                 <p:inputNumber id="impt3"  type="text"  required="true" requiredMessage="La lada no puede estar vacia" maxlength="3" decimalPlaces="0" maxValue="999"  validatorMessage="maximo 3 digitos" value="#{ciudadBean.lada}" ></p:inputNumber><!-- comment -->
 
-                <p:commandButton  update=":form:message,impt,impt2,impt3,tabla" value=" añadir" icon="fa fa-fw fa-plus"  actionListener="#{ciudadBean.insertarCiudad()}" onclick="PF('dlg1').show();"   ></p:commandButton>
+                <p:commandButton id="btnAgregar"  update="message,impt,impt2,impt3,tabla" value=" añadir" icon="fa fa-fw fa-plus"  action="#{ciudadBean.insertarCiudad()}" onclick="PF('dlg1').show();" oncomplete="PF('dlg1').hide();"
+                                
+                                 ></p:commandButton>
 
             </p:dialog>
-
-
+        
+        
         </h:form>
 
 
