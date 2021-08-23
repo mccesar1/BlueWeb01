@@ -44,7 +44,9 @@
                 <p:column headerText="TELEFONÍA" filterBy="#{p.id_telefonia}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{p.id_telefonia}"/></f:facet>
+                        
                         <f:facet name="input"> <p:selectOneMenu id="option" value="#{telefonoBean.idTelefonia}"  >
+                                <f:selectItem itemLabel="Id Telefonía" itemValue=""/>
                         <f:selectItems value="#{telefonoBean.listaTelefono}" var="telefono"
                                        itemLabel="#{telefono.id_telefonia}" itemValue="#{telefono.id_telefonia}"/>
 
