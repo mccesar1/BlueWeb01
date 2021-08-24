@@ -1,0 +1,65 @@
+<ui:composition template="../WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mirage">
+
+
+    <ui:define name="titulo">Telefonia</ui:define>
+    <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
+    <ui:define name="content">
+
+
+        <h:outputStylesheet library="mirage-layout" name="red-light.css"/>
+
+       
+
+
+        <h:form id="form">
+            <p:growl id="message" showDetail="true"/>
+
+
+            <p:dataTable id="tabla" value="#{telefoniaBean.findCTelefoniaEntities}" var="p" paginator="true" rows="10" editable="true" emptyMessage="No se encontraron resultados" widgetVar="filtroCiudad" 
+                         >
+
+
+                <!-- EDITAR -->         
+                <p:ajax event="rowEdit" listener="#{telefoniaBean.edit(CTelefonia)}" update=":form:message"/>
+                <p:ajax event="rowEditCancel"  update=":form:message"/>
+
+
+
+                <p:column headerText="DESCRIPCIÓN" filterBy="#{p.activo}" filterMatchMode="contains"  >
+
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{p.activo}"/></f:facet>
+                        <f:facet name="input"><p:inputText maxlength="50" id="descripcion"  value="#{telefoniaBean.edit(CTelefonia)}" style="width:100%"/></f:facet>
+                    </p:cellEditor>             
+                </p:column>
+               
+
+              
+
+
+
+                <p:column style="width:6rem" headerText="EDITAR">
+                    <p:rowEditor/>
+                </p:column>
+
+
+              
+
+            </p:dataTable>
+            
+           
+
+        
+        
+        </h:form>
+
+
+
+    </ui:define>
+</ui:composition>
