@@ -50,6 +50,14 @@
                     </p:cellEditor> 
                 </p:column>
                 
+<!--                <p:column headerText="id_telefonia" >
+                   
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="{p.idTelefonia.}"/></f:facet>
+                        <f:facet name="input"><p:inputText placeholder="{p.clave}" maxlength="30"   id="modelInput2" value="{telefoniaBean.clave}" style="width:100%"/></f:facet>
+                    </p:cellEditor> 
+                </p:column>-->
+                
 <!--                <p:column headerText="Activo"  filterBy="{p.activo}" filterMatchMode="contains">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="{p.activo}"/></f:facet>
@@ -64,12 +72,17 @@
                 <!-- ELIMINAR -->
                 <p:column style="width:6rem" >                               
                     <p:commandButton  action = "#{telefoniaBean.eliminarTelefonia(p.idTelefonia)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                     <p:confirm header="Confirmación" message="¿Seguro que desea eliminar?" icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>                          
                 </p:column>    
 
 
             </p:dataTable>
-
+            
+             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+        </p:confirmDialog>
 
             <!-- AGREGAR  --> 
             <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />

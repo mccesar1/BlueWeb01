@@ -5,10 +5,13 @@
         <group>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/web/catalogos/telefonia.xhtml</file>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/web/catalogos/index.xhtml</file>
+            <file>file:/C:/Blueweb/Proyectos/BlueWeb01/web/catalogos/telefonos.xhtml</file>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/controllers/CTelefoniaJpaController.java</file>
-            <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/entidades/CTelefonia.java</file>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/web/catalogos/ciudad.xhtml</file>
+            <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/entidades/CTelefonia.java</file>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/controlador/TelefoniaBean.java</file>
+            <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/entidades/CTipoTelefono.java</file>
+            <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/controlador/TipoTelefonoBean.java</file>
             <file>file:/C:/Blueweb/Proyectos/BlueWeb01/src/java/controlador/CiudadBean.java</file>
         </group>
     </open-files>

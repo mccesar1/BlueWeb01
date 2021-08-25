@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -32,7 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CTipoTelefono.findById", query = "SELECT c FROM CTipoTelefono c WHERE c.id = :id"),
     @NamedQuery(name = "CTipoTelefono.findByDescripcion", query = "SELECT c FROM CTipoTelefono c WHERE c.descripcion = :descripcion"),
     @NamedQuery(name = "CTipoTelefono.findByClave", query = "SELECT c FROM CTipoTelefono c WHERE c.clave = :clave"),
-    @NamedQuery(name = "CTipoTelefono.findByIdTelefonia", query = "SELECT c FROM CTipoTelefono c WHERE c.idTelefonia = :idTelefonia"),
     @NamedQuery(name = "CTipoTelefono.findByActivo", query = "SELECT c FROM CTipoTelefono c WHERE c.activo = :activo"),
     @NamedQuery(name = "CTipoTelefono.findByFechaServidor", query = "SELECT c FROM CTipoTelefono c WHERE c.fechaServidor = :fechaServidor")})
 public class CTipoTelefono implements Serializable {
@@ -49,13 +50,14 @@ public class CTipoTelefono implements Serializable {
     @Size(max = 30)
     @Column(name = "CLAVE")
     private String clave;
-    @Column(name = "ID_TELEFONIA")
-    private Long idTelefonia;
     @Column(name = "ACTIVO")
     private Boolean activo;
     @Column(name = "FECHA_SERVIDOR")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaServidor;
+    @JoinColumn(name = "ID_TELEFONIA", referencedColumnName = "ID_TELEFONIA")
+    @ManyToOne
+    private CTelefonia idTelefonia;
 
     public CTipoTelefono() {
     }
@@ -88,14 +90,6 @@ public class CTipoTelefono implements Serializable {
         this.clave = clave;
     }
 
-    public Long getIdTelefonia() {
-        return idTelefonia;
-    }
-
-    public void setIdTelefonia(Long idTelefonia) {
-        this.idTelefonia = idTelefonia;
-    }
-
     public Boolean getActivo() {
         return activo;
     }
@@ -110,6 +104,14 @@ public class CTipoTelefono implements Serializable {
 
     public void setFechaServidor(Date fechaServidor) {
         this.fechaServidor = fechaServidor;
+    }
+
+    public CTelefonia getIdTelefonia() {
+        return idTelefonia;
+    }
+
+    public void setIdTelefonia(CTelefonia idTelefonia) {
+        this.idTelefonia = idTelefonia;
     }
 
     @Override

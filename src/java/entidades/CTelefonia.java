@@ -6,6 +6,7 @@
 package entidades;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,12 +16,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -58,6 +61,8 @@ public class CTelefonia implements Serializable {
     private Date fechaServidor;
     @Column(name = "ACTIVO")
     private Boolean activo;
+    @OneToMany(mappedBy = "idTelefonia")
+    private Collection<CTipoTelefono> cTipoTelefonoCollection;
 
     public CTelefonia() {
     }
@@ -109,6 +114,15 @@ public class CTelefonia implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    @XmlTransient
+    public Collection<CTipoTelefono> getCTipoTelefonoCollection() {
+        return cTipoTelefonoCollection;
+    }
+
+    public void setCTipoTelefonoCollection(Collection<CTipoTelefono> cTipoTelefonoCollection) {
+        this.cTipoTelefonoCollection = cTipoTelefonoCollection;
     }
 
     @Override

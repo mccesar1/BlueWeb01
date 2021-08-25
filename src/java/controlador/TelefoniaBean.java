@@ -1,12 +1,8 @@
 package controlador;
 
-import clases.Ciudad;
-import clases.Respuesta;
 import controllers.CTelefoniaJpaController;
 import entidades.CTelefonia;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -15,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import modelo.CiudadModelo;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -33,7 +28,7 @@ public class TelefoniaBean {
     private String clave;
 
     public TelefoniaBean() {
-        listarTelefonia();
+        
         telefonia = new CTelefonia();
     }
 
@@ -121,52 +116,54 @@ public class TelefoniaBean {
 
     //---------------------------------------------------------------------------------
 //}
+//<editor-fold defaultstate="collapsed" desc="Getters y Settters">
     public List<CTelefonia> getListaTelefonia() {
         return listaTelefonia;
     }
-
+    
     public void setListaTelefonia(List<CTelefonia> listaTelefonia) {
         this.listaTelefonia = listaTelefonia;
     }
-
+    
     public List<CTelefonia> getFiltroTelefonia() {
         return filtroTelefonia;
     }
-
+    
     public void setFiltroTelefonia(List<CTelefonia> filtroTelefonia) {
         this.filtroTelefonia = filtroTelefonia;
     }
-
+    
     public CTelefonia getTelefonia() {
         return telefonia;
     }
-
+    
     public void setTelefonia(CTelefonia telefonia) {
         this.telefonia = telefonia;
     }
-
+    
     public long getId() {
         return id;
     }
-
+    
     public void setId(long id) {
         this.id = id;
     }
-
+    
     public String getDescripcion() {
         return descripcion;
     }
-
+    
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
+    
     public String getClave() {
         return clave;
     }
-
+    
     public void setClave(String clave) {
         this.clave = clave;
     }
+//</editor-fold>
 
 }
