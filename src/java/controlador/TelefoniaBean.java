@@ -1,7 +1,9 @@
 package controlador;
 
 import controllers.CTelefoniaJpaController;
+import controllers.CTipoTelefonoJpaController;
 import entidades.CTelefonia;
+import entidades.CTipoTelefono;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -21,15 +23,20 @@ import org.primefaces.event.RowEditEvent;
 public class TelefoniaBean {
 
     private List<CTelefonia> listaTelefonia;//inicialisa la lista;
+    private List<CTipoTelefono> listaTipoTelefono;//
     private List<CTelefonia> filtroTelefonia;
+    private List<CTelefonia> combo;
     private CTelefonia telefonia;
+    private CTipoTelefono tipotelefono;
     private long id;
     private String descripcion;
     private String clave;
+    private long idTelefonia;
 
     public TelefoniaBean() {
-        
+
         telefonia = new CTelefonia();
+        tipotelefono = new CTipoTelefono();
     }
 
     @PostConstruct
@@ -38,8 +45,11 @@ public class TelefoniaBean {
     public void listarTelefonia() {
 
         try {
-            CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();//crea ciudadmodelo que se conecta con el metodo que esta en ciudad modelo
-            listaTelefonia = telefoniaModelo.findCTelefoniaEntities();
+            CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();//creamos un nuevo modelo de telefonia
+            CTipoTelefonoJpaController tipoTelefonoModelo = new CTipoTelefonoJpaController(); //creamos un nuevo modelo de tipo telefono
+            listaTipoTelefono = tipoTelefonoModelo.findCTipoTelefonoEntities(); //lista para llenar los datos 
+            
+            combo = telefoniaModelo.findCTelefoniaEntities();//lista para los datos que se van a mostrar en el combo 
 
         } catch (Exception ex) {
             Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -51,11 +61,16 @@ public class TelefoniaBean {
     public void insertarTelefonia() throws IOException {
 
         try {
-            CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
-            telefonia.setActivo(Boolean.TRUE);
-            telefonia.setFechaServidor(new Date());
 
-            telefoniaModelo.create(telefonia);
+            CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
+            CTipoTelefonoJpaController tipoTelefonoModelo = new CTipoTelefonoJpaController();
+
+            CTelefonia objTelefonia = telefoniaModelo.findCTelefonia(idTelefonia);
+            tipotelefono.setIdTelefonia(objTelefonia);
+            tipotelefono.setActivo(true);
+            tipotelefono.setFechaServidor(new Date());
+
+            tipoTelefonoModelo.create(tipotelefono);
             listarTelefonia();
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Telefonia agregada");
 
@@ -67,19 +82,29 @@ public class TelefoniaBean {
 
     //-----------------------funcion para editar------------------------------------
     public void editarTelefonia(RowEditEvent event) {
-        
+
+        // CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
+        CTipoTelefonoJpaController tipoTelefonoModelo = new CTipoTelefonoJpaController();
+
+        //CTelefonia telefoniaEdit = (CTelefonia) event.getObject();
+        CTipoTelefono telefoniaEdit = (CTipoTelefono) event.getObject();
         CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
-        CTelefonia telefoniaEdit = (CTelefonia) event.getObject();
-        
-        if(!descripcion.equals("")){
+
+        if (!descripcion.equals("")) {
             telefoniaEdit.setDescripcion(descripcion);
         }
-        if(!clave.equals("")){
+        if (!clave.equals("")) {
             telefoniaEdit.setClave(clave);
+
         }
+        if (idTelefonia > 0) {
+            CTelefonia objTelefonia = telefoniaModelo.findCTelefonia(idTelefonia);
+            telefoniaEdit.setIdTelefonia(objTelefonia);
+        }
+
         try {
-            
-            telefoniaModelo.edit(telefoniaEdit);
+
+            tipoTelefonoModelo.edit(telefoniaEdit);
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Telefonia editada");
             listarTelefonia();
 
@@ -87,16 +112,18 @@ public class TelefoniaBean {
             Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
             addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Telefonia no editada");
         }
-            
+
     }
 
 //    //-------------------funcion para eliminar----------------------------------------
     public void eliminarTelefonia(long id) {
 
         try {
-            CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
+            // CTelefoniaJpaController telefoniaModelo = new CTelefoniaJpaController();
+            CTipoTelefonoJpaController tipoTelefonoModelo = new CTipoTelefonoJpaController();
 
-            telefoniaModelo.destroy(id);
+            tipoTelefonoModelo.destroy(id);
+            //telefoniaModelo.destroy(id);
 
             listarTelefonia();
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Telefonia eliminada");
@@ -116,6 +143,7 @@ public class TelefoniaBean {
 
     //---------------------------------------------------------------------------------
 //}
+//<editor-fold defaultstate="collapsed" desc="Getters y Setters">
 //<editor-fold defaultstate="collapsed" desc="Getters y Settters">
     public List<CTelefonia> getListaTelefonia() {
         return listaTelefonia;
@@ -163,6 +191,39 @@ public class TelefoniaBean {
     
     public void setClave(String clave) {
         this.clave = clave;
+    }
+    
+    public CTipoTelefono getTipotelefono() {
+        return tipotelefono;
+    }
+    
+    public void setTipotelefono(CTipoTelefono tipotelefono) {
+        this.tipotelefono = tipotelefono;
+    }
+    
+    public long getIdTelefonia() {
+        return idTelefonia;
+    }
+    
+    public void setIdTelefonia(long idTelefonia) {
+        this.idTelefonia = idTelefonia;
+    }
+    
+    public List<CTelefonia> getCombo() {
+        return combo;
+    }
+    
+    public void setCombo(List<CTelefonia> combo) {
+        this.combo = combo;
+    }
+    
+//</editor-fold>
+    public List<CTipoTelefono> getListaTipoTelefono() {
+        return listaTipoTelefono;
+    }
+    
+    public void setListaTipoTelefono(List<CTipoTelefono> listaTipoTelefono) {
+        this.listaTipoTelefono = listaTipoTelefono;
     }
 //</editor-fold>
 
