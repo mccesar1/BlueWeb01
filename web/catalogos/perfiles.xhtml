@@ -73,7 +73,13 @@
                 <p:inputText id="impt2" type="text" required="true" maxlength="100" label="El codigo no puede estar vacio" value="#{perfilesBean.perfiles.descripcion}" ></p:inputText>  
 
                 <p:commandButton id="btnAgregar"  update=":form:message,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{perfilesBean.agregarPerfiles()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
-
+                
+<!--                <p:pickList id="plAccesos" value="{perfilesBean.dualListAccesos}" var="p"
+                                        itemLabel="" itemValue="">
+                                <f:facet name="sourceCaption">Disponibles</f:facet>
+                                <f:facet name="targetCaption">Asignados</f:facet>
+                            </p:pickList>-->
+                
             </p:dialog>
             
 

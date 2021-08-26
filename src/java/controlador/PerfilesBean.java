@@ -1,9 +1,12 @@
 package controlador;
 
+import controllers.SPerfilesAccesosJpaController;
 import controllers.SPerfilesJpaController;
 import controllers.exceptions.IllegalOrphanException;
 import controllers.exceptions.NonexistentEntityException;
+import entidades.SAccesos;
 import entidades.SPerfiles;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,7 +16,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
-
+import org.primefaces.model.DualListModel;
+import sesiones.Sesion;
 /**
  *
  * @author Erick Chavarria
@@ -25,6 +29,9 @@ public class PerfilesBean {
     private SPerfiles perfiles;
     private String nombre;
     private String descripcion;
+    private DualListModel<SAccesos> dualListAccesos;
+    private List<SAccesos> listaAccesosDisponibles;
+    private List<SAccesos> listaAccesosAsignados;
 
     public PerfilesBean() {
 
@@ -63,15 +70,25 @@ public class PerfilesBean {
 
     //------------------------funcion para agregar-----------------------------------------------------------------------------
     public void agregarPerfiles() {
-
+        List<SAccesos> listaAccesos = new ArrayList<>();
+        
         try {
             SPerfilesJpaController perfilModelo = new SPerfilesJpaController();
-
+            SPerfilesAccesosJpaController Modelo = new SPerfilesAccesosJpaController();
+            
             perfiles.setFechaAlta(new Date());
             perfiles.setFechaServidor(new Date());
             perfiles.setActivo(true);
+            perfiles.setIdUsuarioModifica(Sesion.sesionId());
+            
+           
+           
+      
 
+            
             perfilModelo.create(perfiles);
+            
+         
             listarPerfiles();
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Perfil agregado");
 
@@ -94,6 +111,8 @@ public class PerfilesBean {
         if (!descripcion.equals("")) {
             perfilesEdit.setDescripcion(descripcion);
         }
+        perfilesEdit.setIdUsuarioModifica(Sesion.sesionId());
+        perfilesEdit.setFechaServidor(new Date());
         try {            
             perfilModelo.edit(perfilesEdit);
             listarPerfiles();
@@ -141,5 +160,14 @@ public class PerfilesBean {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public DualListModel<SAccesos> getDualListAccesos() {
+        return dualListAccesos;
+    }
+
+    public void setDualListAccesos(DualListModel<SAccesos> dualListAccesos) {
+        this.dualListAccesos = dualListAccesos;
+    }
+    
 
 }

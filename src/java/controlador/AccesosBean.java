@@ -1,6 +1,4 @@
-
 package controlador;
-
 
 import controllers.SAccesosJpaController;
 import entidades.SAccesos;
@@ -14,51 +12,45 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.RowEditEvent;
 
-
-@ManagedBean(name="accesosBean")
+@ManagedBean(name = "accesosBean")
 public class AccesosBean {
-    
-    
+
     private List<SAccesos> listaAccesos;//inicialisa la lista;
     private List<SAccesos> filtroAccesos;
     private SAccesos acceso;
     private String nombreAcceso;
     private short orden;
-    
-    
+
     public AccesosBean() {
 
         acceso = new SAccesos();
-        
+
     }
-     @PostConstruct
+
+    @PostConstruct
 
     //-------------------------funcion para mostrar la lista --------------------------------------------------------------
     public void listarAccesos() {
 
         try {
             SAccesosJpaController accesoModelo = new SAccesosJpaController();//creamos un nuevo modelo de telefonia
-            
-            listaAccesos = accesoModelo.findSAccesosEntities();
-            
 
+            listaAccesos = accesoModelo.findSAccesosEntities();
 
         } catch (Exception ex) {
             Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-     //-------------------------------------para agregar------------------------------------------------------------
+
+    //-------------------------------------para agregar------------------------------------------------------------
     public void insertarAcceso() {
 
         try {
-               SAccesosJpaController accesoModelo = new SAccesosJpaController();
-  
+            SAccesosJpaController accesoModelo = new SAccesosJpaController();
+
             acceso.setFechaServidor(new Date());
             acceso.setActivo(true);
-            
-            
 
             accesoModelo.create(acceso);
             listarAccesos();
@@ -69,16 +61,15 @@ public class AccesosBean {
             addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Acceso no agregado");
         }
     }
-    
-     //-------------------funcion para eliminar----------------------------------------
+
+    //-------------------funcion para eliminar----------------------------------------
     public void eliminarAcceso(int id) {
 
         try {
-           
-              SAccesosJpaController accesoModelo = new SAccesosJpaController();
+
+            SAccesosJpaController accesoModelo = new SAccesosJpaController();
 
             accesoModelo.destroy(id);
-           
 
             listarAccesos();
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Acceso eliminado");
@@ -89,25 +80,25 @@ public class AccesosBean {
         }
 
     }
-    
-     //-----------------------funcion para editar------------------------------------
+
+    //-----------------------funcion para editar------------------------------------
     public void editarAcceso(RowEditEvent event) {
 
-       
-         SAccesosJpaController accesoModelo = new SAccesosJpaController();
-       SAccesos accesoEdit = (SAccesos) event.getObject();
-      
+        SAccesosJpaController accesoModelo = new SAccesosJpaController();
+        SAccesos accesoEdit = (SAccesos) event.getObject();
+
         if (!nombreAcceso.equals("")) {
             accesoEdit.setNombreAcceso(nombreAcceso);
         }
-        
+
         if (orden > 0) {
-            
+
             accesoEdit.setOrden(orden);
         }
 
         try {
-
+            accesoEdit.setFechaServidor(new Date());
+             
             accesoModelo.edit(accesoEdit);
             addMessage(FacesMessage.SEVERITY_INFO, "Exitoso", "Acceso editado");
             listarAccesos();
@@ -121,12 +112,11 @@ public class AccesosBean {
 
     }
 
-    
     public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));
     }
-    
+
     public List<SAccesos> getListaAccesos() {
         return listaAccesos;
     }
@@ -167,13 +157,4 @@ public class AccesosBean {
         this.orden = orden;
     }
 
-
-    
-    
-    
-    }
-    
-    
-    
-    
-
+}
