@@ -1,0 +1,83 @@
+<ui:composition template="../WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
+    <ui:define name="titulo">Perfiles</ui:define>
+    <ui:define name="content">
+        
+        
+        <h:form id="form">
+            <p:growl id="message" showDetail="true"/>
+        
+            <p:dataTable id="tabla" var="p" value="#{accesosBean.listaAccesos}" paginator="true" rows="10" editable="true" emptyMessage="No se encontraron resultados"
+                    widgetVar="filtroCiudad"                            
+                    filteredValue="#{accesosBean.filtroAccesos}" >
+                
+                <!-- EDITAR -->
+                <p:ajax  event="rowEdit" listener="#{accesosBean.editarAcceso}" update=":form:message,tabla"/>
+                <p:ajax event="rowEditCancel"  update=":form:message"/>
+
+                
+        
+                <p:column   filterBy="#{p.nombreAcceso}" filterMatchMode="contains" headerText="Nombre Acceso">
+                
+                
+                 <p:cellEditor>
+                     <f:facet name="output"><h:outputText value="#{p.nombreAcceso}"/></f:facet>
+                     <f:facet name="input"><p:inputText placeholder="#{p.nombreAcceso}" maxlength="30"   id="modelInput1" value="#{accesosBean.nombreAcceso}" style="width:100%"/></f:facet>
+                    </p:cellEditor>  
+            </p:column>
+                
+                <p:column headerText="Orden" filterBy="#{p.orden}" filterMatchMode="contains">
+                
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{p.orden}"/></f:facet>
+                    <f:facet name="input"><p:inputText placeholder="#{p.orden}" maxlength="30"   id="modelInput2" value="#{accesosBean.orden}" style="width:100%"/></f:facet>
+                    </p:cellEditor> 
+            </p:column>
+                
+                 <p:column  headerText="EDITAR" style="width:6rem">
+                    <p:rowEditor/>
+                </p:column>
+
+                
+                 <!-- ELIMINAR -->
+                <p:column style="width:6rem" >                               
+                    <p:commandButton  action = "#{accesosBean.eliminarAcceso(p.idAcceso)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                      
+                    </p:commandButton>                          
+                </p:column>    
+            
+        </p:dataTable>
+             
+            
+            
+            <!-- AGREGAR  --> 
+            <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+
+            <p:dialog id="modal" header="Agregar Telefono" widgetVar="dlg1" minHeight="40">
+
+                <p:outputLabel value="  Nombre Acceso  " />
+                <p:inputText id="impt1" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{accesosBean.acceso.nombreAcceso}" ></p:inputText>  
+
+                <p:outputLabel value="  Orden  " />
+                <p:inputText id="impt2" type="text" required="true" maxlength="2" label="El codigo no puede estar vacio" value="#{accesosBean.acceso.orden}" ></p:inputText>  
+
+                
+
+                <p:commandButton id="btnAgregar"  update=":form:message,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{accesosBean.insertarAcceso()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
+
+            </p:dialog>
+            
+            
+            
+            
+        <h:outputStylesheet library="mirage-layout" name="red-light.css"/>
+        
+     </h:form>
+    </ui:define>
+</ui:composition>

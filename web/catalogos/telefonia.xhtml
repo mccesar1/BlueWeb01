@@ -25,8 +25,8 @@
                          widgetVar="filtroCiudad"                            
                          filteredValue="#{telefoniaBean.filtroTelefonia}"
                          >
-                
-                
+
+
                 <!-- EDITAR -->
                 <p:ajax event="rowEdit" listener="#{telefoniaBean.editarTelefonia}" update=":form:message,tabla"/>
                 <p:ajax event="rowEditCancel"  update=":form:message"/>
@@ -35,56 +35,54 @@
 
 
                 <p:column headerText="Descripción"  filterBy="#{p.descripcion}" filterMatchMode="contains">
-                    
-                    
+
+
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
                         <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" maxlength="30"   id="modelInput1" value="#{telefoniaBean.descripcion}" style="width:100%"/></f:facet>
                     </p:cellEditor>    
                 </p:column>
                 <p:column headerText="Clave"  filterBy="#{p.clave}" filterMatchMode="contains">
-                   
+
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{p.clave}"/></f:facet>
                         <f:facet name="input"><p:inputText placeholder="#{p.clave}" maxlength="30"   id="modelInput2" value="#{telefoniaBean.clave}" style="width:100%"/></f:facet>
                     </p:cellEditor> 
                 </p:column>
                 <p:column headerText="Telefonia"  filterBy="#{p.descripcion}" filterMatchMode="contains">
-                   
+
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{p.idTelefonia.descripcion}"/></f:facet>
-                   
+
                         <f:facet name="input"> <p:selectOneMenu id="option" value="#{telefoniaBean.idTelefonia}"  >
                                 <f:selectItem itemLabel="Id Telefonía" itemValue="0"/>
                                 <f:selectItems value="#{telefoniaBean.combo}" var="telefono"
                                                itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}"/>
 
-                    
-                </p:selectOneMenu></f:facet>
-                        
+
+                            </p:selectOneMenu></f:facet>
+
                     </p:cellEditor> 
                 </p:column>
-                
 
-                
-                 <p:column  headerText="EDITAR" style="width:6rem">
+                <p:column  headerText="EDITAR" style="width:6rem">
                     <p:rowEditor/>
                 </p:column>
 
                 <!-- ELIMINAR -->
                 <p:column style="width:6rem" >                               
                     <p:commandButton  action = "#{telefoniaBean.eliminarTelefonia(p.id)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
-                     <p:confirm header="Confirmación" message="¿Seguro que desea eliminar?" icon="pi pi-exclamation-triangle"/>
+                        <p:confirm header="Confirmación" message="¿Seguro que desea eliminar?" icon="pi pi-exclamation-triangle"/>
                     </p:commandButton>                          
                 </p:column>    
 
 
             </p:dataTable>
-            
-             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-        </p:confirmDialog>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+            </p:confirmDialog>
 
             <!-- AGREGAR  --> 
             <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
@@ -93,18 +91,18 @@
 
                 <p:outputLabel value="  Clave  " />
                 <p:inputText id="impt1" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{telefoniaBean.tipotelefono.descripcion}" ></p:inputText>  
-                    
+
                 <p:outputLabel value="  Clave  " />
                 <p:inputText id="impt2" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{telefoniaBean.tipotelefono.clave}" ></p:inputText>  
 
                 <p:selectOneMenu id="option" value="#{telefoniaBean.idTelefonia}"  >
-                                <f:selectItem itemLabel="Id Telefonía" itemValue=""/>
-                                <f:selectItems value="#{telefoniaBean.combo}" var="telefono"
-                                               itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}"/>
+                    <f:selectItem itemLabel="Id Telefonía" itemValue=""/>
+                    <f:selectItems value="#{telefoniaBean.combo}" var="telefono"
+                                   itemLabel="#{telefono.descripcion}" itemValue="#{telefono.idTelefonia}"/>
 
-                    
+
                 </p:selectOneMenu>
-                
+
                 <p:commandButton id="btnAgregar"  update=":form:message,impt1,impt2,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{telefoniaBean.insertarTelefonia()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
 
             </p:dialog>

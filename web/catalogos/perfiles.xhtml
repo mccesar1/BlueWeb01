@@ -1,0 +1,54 @@
+<ui:composition template="../WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="icono"><link rel="shortcut icon" type="image/x-icon" href="#{resource['img/favicon.ico']}"/></ui:define>
+    <ui:define name="titulo">Perfiles</ui:define>
+    <ui:define name="content">
+        
+        
+        <h:outputStylesheet library="mirage-layout" name="red-light.css"/>
+        
+        <h:form id="form">
+            <p:growl id="message" showDetail="true"/>
+        
+            <p:dataTable id="tabla" var="p" value="#{perfilesBean.listaPerfiles}" paginator="true" rows="10" editable="true" emptyMessage="No se encontraron resultados"
+                    widgetVar="filtroCiudad"                            
+                    filteredValue="#{accesosBean.filtroAccesos}" >
+                
+               
+        
+                <p:column   filterBy="#{p.nombrePerfil}" filterMatchMode="contains" headerText="Nombre">
+                
+                
+                 <p:cellEditor>
+                     <f:facet name="output"><h:outputText value="#{p.nombrePerfil}"/></f:facet>
+                     <f:facet name="input"><p:inputText placeholder="#{p.nombrePerfil}" maxlength="30"   id="modelInput1" value="" style="width:100%"/></f:facet>
+                    </p:cellEditor>  
+            </p:column>
+                
+                <p:column headerText="Descripción" filterBy="#{p.descripcion}" filterMatchMode="contains">
+                
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
+                    <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" maxlength="30"   id="modelInput2" value="" style="width:100%"/></f:facet>
+                    </p:cellEditor> 
+            </p:column>
+                
+                 <p:column  headerText="EDITAR" style="width:6rem">
+                    <p:rowEditor/>
+                </p:column>
+
+                
+              
+            
+        </p:dataTable>
+
+        
+        </h:form>
+        
+    </ui:define>
+</ui:composition>

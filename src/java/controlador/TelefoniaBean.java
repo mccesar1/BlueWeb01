@@ -112,6 +112,9 @@ public class TelefoniaBean {
             Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
             addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Telefonia no editada");
         }
+        descripcion = "";
+        clave = "";
+        idTelefonia = 0;
 
     }
 
