@@ -19,6 +19,11 @@
                     widgetVar="filtroCiudad"                            
                     filteredValue="#{accesosBean.filtroAccesos}" >
                 
+                
+                 <!-- EDITAR -->
+                 <p:ajax id="btnEditar"  event="rowEdit" listener="#{perfilesBean.editarPerfiles}" update=":form:message,tabla"/>
+                <p:ajax event="rowEditCancel"  update=":form:message"/>
+
                
         
                 <p:column   filterBy="#{p.nombrePerfil}" filterMatchMode="contains" headerText="Nombre">
@@ -26,7 +31,7 @@
                 
                  <p:cellEditor>
                      <f:facet name="output"><h:outputText value="#{p.nombrePerfil}"/></f:facet>
-                     <f:facet name="input"><p:inputText placeholder="#{p.nombrePerfil}" maxlength="30"   id="modelInput1" value="" style="width:100%"/></f:facet>
+                     <f:facet name="input"><p:inputText placeholder="#{p.nombrePerfil}" maxlength="30"   id="modelInput1" value="#{perfilesBean.nombre}" style="width:100%"/></f:facet>
                     </p:cellEditor>  
             </p:column>
                 
@@ -34,7 +39,7 @@
                 
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{p.descripcion}"/></f:facet>
-                    <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" maxlength="30"   id="modelInput2" value="" style="width:100%"/></f:facet>
+                    <f:facet name="input"><p:inputText placeholder="#{p.descripcion}" maxlength="30"   id="modelInput2" value="#{perfilesBean.descripcion}" style="width:100%"/></f:facet>
                     </p:cellEditor> 
             </p:column>
                 
@@ -43,9 +48,34 @@
                 </p:column>
 
                 
-              
+                
+                  <!-- ELIMINAR -->
+                <p:column style="width:6rem" >                               
+                    <p:commandButton  action = "#{perfilesBean.eliminarPerfiles(p.idPerfil)}" value="Borrar" icon="pi pi-trash"  class="btn btn-danger" styleClass="ui-button-danger"  process="@this" update=":form:message,tabla" >                       
+                      
+                    </p:commandButton>                          
+                </p:column>    
+          
             
         </p:dataTable>
+            
+            
+            
+             <!-- AGREGAR  --> 
+            <p:commandButton value="Agregar Perfil" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+
+            <p:dialog id="modal" header="Agregar Perfil" widgetVar="dlg1" minHeight="40">
+
+                <p:outputLabel value="  Nombre   " />
+                <p:inputText id="impt1" type="text" required="true" maxlength="30" label="El codigo no puede estar vacio" value="#{perfilesBean.perfiles.nombrePerfil}" ></p:inputText>  
+
+                <p:outputLabel value="  Descripción  " />
+                <p:inputText id="impt2" type="text" required="true" maxlength="100" label="El codigo no puede estar vacio" value="#{perfilesBean.perfiles.descripcion}" ></p:inputText>  
+
+                <p:commandButton id="btnAgregar"  update=":form:message,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{perfilesBean.agregarPerfiles()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
+
+            </p:dialog>
+            
 
         
         </h:form>

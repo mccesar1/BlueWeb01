@@ -95,7 +95,6 @@ public class AccesosBean {
 
        
          SAccesosJpaController accesoModelo = new SAccesosJpaController();
-
        SAccesos accesoEdit = (SAccesos) event.getObject();
       
         if (!nombreAcceso.equals("")) {

@@ -18,7 +18,7 @@
                     filteredValue="#{accesosBean.filtroAccesos}" >
                 
                 <!-- EDITAR -->
-                <p:ajax  event="rowEdit" listener="#{accesosBean.editarAcceso}" update=":form:message,tabla"/>
+                <p:ajax id="btnEditar"  event="rowEdit" listener="#{accesosBean.editarAcceso}" update=":form:message,tabla"/>
                 <p:ajax event="rowEditCancel"  update=":form:message"/>
 
                 
@@ -57,17 +57,15 @@
             
             
             <!-- AGREGAR  --> 
-            <p:commandButton value="Agregar Teléfono" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
+            <p:commandButton value="Agregar Acceso" icon="pi pi-plus" type="button" onclick="PF('dlg1').show();" />
 
-            <p:dialog id="modal" header="Agregar Telefono" widgetVar="dlg1" minHeight="40">
+            <p:dialog id="modal" header="Agregar Acceso" widgetVar="dlg1" minHeight="40">
 
                 <p:outputLabel value="  Nombre Acceso  " />
                 <p:inputText id="impt1" type="text" required="true" maxlength="20" label="El codigo no puede estar vacio" value="#{accesosBean.acceso.nombreAcceso}" ></p:inputText>  
 
                 <p:outputLabel value="  Orden  " />
                 <p:inputText id="impt2" type="text" required="true" maxlength="2" label="El codigo no puede estar vacio" value="#{accesosBean.acceso.orden}" ></p:inputText>  
-
-                
 
                 <p:commandButton id="btnAgregar"  update=":form:message,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{accesosBean.insertarAcceso()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
 
