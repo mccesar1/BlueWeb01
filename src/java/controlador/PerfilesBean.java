@@ -1,5 +1,6 @@
 package controlador;
 
+import controllers.SAccesosJpaController;
 import controllers.SPerfilesAccesosJpaController;
 import controllers.SPerfilesJpaController;
 import controllers.exceptions.IllegalOrphanException;
@@ -31,7 +32,7 @@ public class PerfilesBean {
     private String descripcion;
     private DualListModel<SAccesos> dualListAccesos;
     private List<SAccesos> listaAccesosDisponibles;
-    private List<SAccesos> listaAccesosAsignados;
+    private List<SAccesos> listaAccesosActuales;
 
     public PerfilesBean() {
 
@@ -40,6 +41,24 @@ public class PerfilesBean {
     }
 
     @PostConstruct
+    public void cargarPickList() {//inicializa la pickList 
+        SAccesosJpaController Modelo = new SAccesosJpaController();
+        try {
+            listaAccesosDisponibles = Modelo.findSAccesosEntities();
+            listaAccesosActuales = new ArrayList<>();
+            dualListAccesos = new DualListModel<>(listaAccesosDisponibles, listaAccesosActuales);
+            loadProfileData();//para que cargue la lista del combo desde que inica la pagina
+
+        } catch (Exception ex) {
+                Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+
+    public void loadProfileData() {
+        SPerfilesJpaController perfilModelo = new SPerfilesJpaController();
+        listaPerfiles = perfilModelo.findSPerfilesEntities();//lista para el combo 
+    }
     //-------------------------funcion para mostrar la lista --------------------------------------------------------------
     public void listarPerfiles() {
 
@@ -70,22 +89,24 @@ public class PerfilesBean {
 
     //------------------------funcion para agregar-----------------------------------------------------------------------------
     public void agregarPerfiles() {
-        List<SAccesos> listaAccesos = new ArrayList<>();
         
-        try {
-            SPerfilesJpaController perfilModelo = new SPerfilesJpaController();
+         SPerfilesJpaController perfilModelo = new SPerfilesJpaController();
             SPerfilesAccesosJpaController Modelo = new SPerfilesAccesosJpaController();
-            
+        List<SAccesos> listaAccesos = new ArrayList<>();  
+        
+          listaAccesosActuales= perfilModelo.AccesosAsignados(perfiles);
+          listaAccesosDisponibles = perfilModelo.AccesosDisponibles(perfiles);
+          
+        dualListAccesos = new DualListModel<>(listaAccesosDisponibles, listaAccesosActuales);
+        listaAccesos = dualListAccesos.getTarget();
+        try {
+                     
             perfiles.setFechaAlta(new Date());
             perfiles.setFechaServidor(new Date());
             perfiles.setActivo(true);
             perfiles.setIdUsuarioModifica(Sesion.sesionId());
             
-           
-           
-      
-
-            
+  
             perfilModelo.create(perfiles);
             
          
@@ -122,8 +143,10 @@ public class PerfilesBean {
             Logger.getLogger(TelefoniaBean.class.getName()).log(Level.SEVERE, null, e);
             addMessage(FacesMessage.SEVERITY_ERROR, "Error", "Perfil no editado");
         }
-
+        
     }
+  
+   
      public void addMessage(FacesMessage.Severity severity, String summary, String detail) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severity, summary, detail));
@@ -167,6 +190,22 @@ public class PerfilesBean {
 
     public void setDualListAccesos(DualListModel<SAccesos> dualListAccesos) {
         this.dualListAccesos = dualListAccesos;
+    }
+
+    public List<SAccesos> getListaAccesosDisponibles() {
+        return listaAccesosDisponibles;
+    }
+
+    public void setListaAccesosDisponibles(List<SAccesos> listaAccesosDisponibles) {
+        this.listaAccesosDisponibles = listaAccesosDisponibles;
+    }
+
+    public List<SAccesos> getListaAccesosActuales() {
+        return listaAccesosActuales;
+    }
+
+    public void setListaAccesosActuales(List<SAccesos> listaAccesosActuales) {
+        this.listaAccesosActuales = listaAccesosActuales;
     }
     
 

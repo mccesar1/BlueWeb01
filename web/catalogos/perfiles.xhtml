@@ -14,7 +14,35 @@
         
         <h:form id="form">
             <p:growl id="message" showDetail="true"/>
-        
+            <div class="card">
+                  <p:panelGrid columns="4" layout="flex"
+                 columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+                 contentStyleClass="ui-fluid">
+            <p:selectOneMenu id="option" value="#{perfilesBean.listaPerfiles}"  >
+                    <f:selectItem itemLabel="Perfiles" itemValue=""/>
+                    <f:selectItems value="#{perfilesBean.listaPerfiles}" var="perfil"
+                                   itemLabel="#{perfil.descripcion}" itemValue="#{perfil.descripcion}"/>
+
+
+                </p:selectOneMenu>
+                      </p:panelGrid>
+        </div>
+            <p:pickList id="plPerfilesAccesos" value="#{perfilesBean.dualListAccesos}" 
+                        var="accesos" itemLabel="#{accesos.nombreAcceso}" 
+                                    itemValue="#{accesos}" responsive="true"
+                                    addLabel="Añadir" addAllLabel="Añadir todos"
+                                    removeLabel="Quitar" removeAllLabel="Quitar todos"
+                                    style="text-align:center;">
+
+                            <f:facet name="sourceCaption">
+                                <h:outputLabel value="Accesos posibles" />
+                            </f:facet>
+                            <f:facet name="targetCaption">
+                                <h:outputLabel value="Accesos asignados" />
+                            </f:facet>
+
+                        </p:pickList>
+                        
             <p:dataTable id="tabla" var="p" value="#{perfilesBean.listaPerfiles}" paginator="true" rows="10" editable="true" emptyMessage="No se encontraron resultados"
                     widgetVar="filtroCiudad"                            
                     filteredValue="#{accesosBean.filtroAccesos}" >
@@ -74,12 +102,21 @@
 
                 <p:commandButton id="btnAgregar"  update=":form:message,tabla" value="añadir" icon="pi pi-plus"  actionListener="#{perfilesBean.agregarPerfiles()}" onclick="PF('dlg1').hide();"  ></p:commandButton>
                 
-<!--                <p:pickList id="plAccesos" value="{perfilesBean.dualListAccesos}" var="p"
-                                        itemLabel="" itemValue="">
-                                <f:facet name="sourceCaption">Disponibles</f:facet>
-                                <f:facet name="targetCaption">Asignados</f:facet>
-                            </p:pickList>-->
-                
+<!--                <p:pickList id="plPerfilesAccesos" value="{perfilesBean.dualListAccesos}" 
+                                    var="accesos" itemLabel="" 
+                                    itemValue="" responsive="true"
+                                    addLabel="Añadir" addAllLabel="Añadir todos"
+                                    removeLabel="Quitar" removeAllLabel="Quitar todos"
+                                    style="text-align:center;">
+
+                            <f:facet name="sourceCaption">
+                                <h:outputLabel value="Accesos posibles" />
+                            </f:facet>
+                            <f:facet name="targetCaption">
+                                <h:outputLabel value="Accesos asignados" />
+                            </f:facet>
+
+                        </p:pickList>-->
             </p:dialog>
             
 

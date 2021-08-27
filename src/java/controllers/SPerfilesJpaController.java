@@ -8,6 +8,8 @@ package controllers;
 import controllers.exceptions.IllegalOrphanException;
 import controllers.exceptions.NonexistentEntityException;
 import controllers.exceptions.PreexistingEntityException;
+import entidades.SAccesos;
+import entidades.SAccesos_;
 import entidades.SPerfiles;
 import java.io.Serializable;
 import javax.persistence.Query;
@@ -15,11 +17,17 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import entidades.SPerfilesAccesos;
+import entidades.SPerfilesAccesos_;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CollectionJoin;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 import utils.LocalEntityManagerFactory;
 
 /**
@@ -208,4 +216,60 @@ public class SPerfilesJpaController implements Serializable {
         }
     }
     
-}
+    public List<SAccesos> AccesosAsignados(SPerfiles perfiles) {
+        List<SAccesos> lista = new ArrayList<>();
+        EntityManager em = getEntityManager();
+         CriteriaBuilder cb = em.getCriteriaBuilder();
+        try {
+
+            CriteriaQuery<SAccesos> query = cb.createQuery(SAccesos.class);
+            Root<SAccesos> perfil = query.from(SAccesos.class);
+            
+            CollectionJoin<SAccesos, SPerfilesAccesos> usuarioPerfil = perfil.join(SAccesos_.sPerfilesAccesosCollection);     
+            query.select(perfil).where(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), perfiles));
+            
+            TypedQuery<SAccesos> typedQuery = em.createQuery(query);
+            //typedQuery.getResultList().forEach(System.out::println);
+            lista = typedQuery.getResultList();
+            
+            
+        } catch (Exception ex) {
+    
+        }
+        return lista;
+    }
+    
+    public List <SAccesos> AccesosDisponibles(SPerfiles perfiles){
+        List<SAccesos> lista = new ArrayList<>();
+        EntityManager em = getEntityManager();
+         CriteriaBuilder cb = em.getCriteriaBuilder();
+         
+         try {
+
+            CriteriaQuery<SAccesos> query = cb.createQuery(SAccesos.class);
+            Root<SAccesos> perfil = query.from(SAccesos.class);         
+          CollectionJoin<SAccesos, SPerfilesAccesos> usuarioPerfil = perfil.join(SAccesos_.sPerfilesAccesosCollection); 
+            usuarioPerfil.on(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), perfiles));
+            query.select(perfil).where(cb.isNull(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles)));
+            
+         query.select(perfil).where(cb.equal(usuarioPerfil.get(SPerfilesAccesos_.sPerfiles), perfiles));
+           
+           
+           
+           
+            TypedQuery<SAccesos> typedQuery = em.createQuery(query);
+            typedQuery.getResultList().forEach(System.out::println);
+            lista = typedQuery.getResultList();
+            
+            
+        } catch (Exception ex) {}
+         
+         return lista;
+    
+    }
+    
+    
+    
+    
+    
+    }
